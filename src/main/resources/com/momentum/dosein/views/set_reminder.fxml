@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.momentum.dosein.controllers.SetReminderController"
+            prefWidth="800" prefHeight="500"
+            stylesheets="@../css/style.css"
+            styleClass="dashboard-root">
+
+    <!-- Title -->
+    <Label layoutX="300" layoutY="20"
+           text="Set "
+           styleClass="title-label"/>
+    <Label layoutX="360" layoutY="20"
+           text="Reminder"
+           styleClass="title-accent"/>
+
+    <!-- Pill name row -->
+    <HBox layoutX="150" layoutY="80" spacing="10" alignment="CENTER_LEFT"
+          styleClass="row-container">
+        <Label text="Pill name:" styleClass="row-label"/>
+        <TextField fx:id="pillNameField" prefWidth="350"/>
+    </HBox>
+
+    <!-- Scrollable time-rows region -->
+    <ScrollPane layoutX="150" layoutY="150"
+                prefWidth="500" prefHeight="120"
+                fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                styleClass="scroll-zone">
+        <content>
+            <VBox fx:id="timeContainer"
+                  spacing="10"
+                  prefWidth="480"/>
+        </content>
+    </ScrollPane>
+
+    <!-- Additional Info -->
+    <TextArea fx:id="infoArea"
+              layoutX="150" layoutY="280"
+              promptText="Additional Information :"
+              wrapText="true"
+              prefWidth="500" prefHeight="120"
+              styleClass="row-container"/>
+
+    <!-- Cancel / Add -->
+    <HBox layoutX="150" layoutY="430" spacing="50">
+        <Button text="Cancel"
+                onAction="#handleCancel"
+                prefWidth="180" prefHeight="50"
+                styleClass="blue-button"/>
+        <Button text="Add"
+                onAction="#handleAdd"
+                prefWidth="180" prefHeight="50"
+                styleClass="exit-button"/>
+    </HBox>
+</AnchorPane>

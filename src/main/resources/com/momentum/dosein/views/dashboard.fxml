@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.momentum.dosein.controllers.DashboardController"
+            prefWidth="800" prefHeight="500"
+            stylesheets="@../css/style.css"
+            styleClass="dashboard-root">
+
+    <!-- Welcome -->
+    <Label layoutX="300" layoutY="20"
+           text="Welcome ! , "
+           styleClass="title-label"/>
+    <Label fx:id="usernameLabel"
+           layoutX="420" layoutY="20"
+           styleClass="title-accent"/>
+
+    <!-- Clock + Scrollable Reminder List -->
+    <VBox layoutX="80" layoutY="80" prefWidth="300" prefHeight="350" spacing="10">
+        <!-- Real-time clock -->
+        <Label fx:id="clockLabel"
+               text="--:-- --"
+               styleClass="title-label"/>
+
+        <!-- This ListView scrolls automatically -->
+        <ListView fx:id="reminderListView"
+                  prefWidth="300" prefHeight="300"
+                  styleClass="scroll-zone">
+            <!-- You can apply .reminder-cell via cellFactory if desired -->
+        </ListView>
+    </VBox>
+
+    <!-- Action buttons -->
+    <GridPane layoutX="450" layoutY="80" hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="50"/>
+            <RowConstraints percentHeight="50"/>
+        </rowConstraints>
+
+        <children>
+            <Button text="Set Reminder"
+                    onAction="#handleSetReminder"
+                    prefWidth="150" prefHeight="80"
+                    styleClass="blue-button"
+                    GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+
+            <Button text="Manage"
+                    onAction="#handleManage"
+                    prefWidth="150" prefHeight="80"
+                    styleClass="blue-button"
+                    GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+            <Button text="Doctors"
+                    onAction="#handleDoctors"
+                    prefWidth="150" prefHeight="80"
+                    styleClass="blue-button"
+                    GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+
+            <Button text="Emergency"
+                    onAction="#handleEmergency"
+                    prefWidth="150" prefHeight="80"
+                    styleClass="blue-button"
+                    GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        </children>
+    </GridPane>
+
+    <!-- Exit -->
+    <Button text="Exit"
+            layoutX="600" layoutY="400"
+            prefWidth="120"
+            styleClass="exit-button"
+            onAction="#handleExit"/>
+</AnchorPane>

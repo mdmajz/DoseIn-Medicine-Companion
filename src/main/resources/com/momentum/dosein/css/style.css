@@ -1,0 +1,85 @@
+/* === Root Background === */
+.dashboard-root {
+    -fx-background-color: #050f20;
+}
+
+/* === Headline Labels === */
+.title-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.title-accent {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ff5e5e;
+}
+
+/* === Pill-name and time rows === */
+.row-container {
+    -fx-background-color: #084fc7;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+.row-label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.time-field {
+    -fx-pref-width: 200px;
+    -fx-prompt-text-fill: #cccccc;
+}
+
+/* === Buttons === */
+.blue-button {
+    -fx-background-color: #084fc7;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 10;
+}
+.exit-button {
+    -fx-background-color: #ff5e5e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+}
+.icon-button {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-background-color: transparent;
+    -fx-border-color: white;
+    -fx-border-radius: 50%;
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+}
+
+/* === ScrollPane tweaks === */
+.scroll-zone {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+/* === ListView cells === */
+.reminder-cell {
+    -fx-padding: 10;
+    -fx-border-color: #084fc7;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.reminder-cell-next {
+    -fx-background-color: #084fc7;
+    -fx-text-fill: white;
+}
+
+/* === Hover effects === */
+.blue-button:hover {
+    -fx-opacity: 0.8;
+}
+.exit-button:hover {
+    -fx-opacity: 0.8;
+}
+.icon-button:hover {
+    -fx-opacity: 0.8;
+}
