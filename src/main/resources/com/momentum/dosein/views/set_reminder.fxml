@@ -1,61 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.momentum.dosein.controllers.SetReminderController"
             prefWidth="800" prefHeight="500"
             stylesheets="@../css/style.css"
-            styleClass="dashboard-root">
+            styleClass="add-root">
 
-    <!-- Title -->
-    <Label layoutX="300" layoutY="20"
+    <!-- Header -->
+    <Label layoutX="40"  layoutY="20"
            text="Set "
-           styleClass="title-label"/>
-    <Label layoutX="360" layoutY="20"
+           styleClass="title-hello"/>
+    <Label layoutX="100" layoutY="20"
            text="Reminder"
            styleClass="title-accent"/>
+    <Label layoutX="40" layoutY="60"
+           text="Stay on track with your medication by setting a reminder!"
+           styleClass="subtitle"/>
 
-    <!-- Pill name row -->
-    <HBox layoutX="150" layoutY="80" spacing="10" alignment="CENTER_LEFT"
-          styleClass="row-container">
-        <Label text="Pill name:" styleClass="row-label"/>
-        <TextField fx:id="pillNameField" prefWidth="350"/>
+    <!-- Pill Name -->
+    <HBox layoutX="40" layoutY="120" spacing="10" alignment="CENTER_LEFT">
+        <Label text="Pill Name:" styleClass="pill-label"/>
+        <TextField fx:id="pillNameField"
+                   promptText="e.g. Napa 250 Mg"
+                   styleClass="pill-input"/>
     </HBox>
 
-    <!-- Scrollable time-rows region -->
-    <ScrollPane layoutX="150" layoutY="150"
-                prefWidth="500" prefHeight="120"
-                fitToWidth="true"
-                hbarPolicy="NEVER"
-                vbarPolicy="AS_NEEDED"
-                styleClass="scroll-zone">
-        <content>
-            <VBox fx:id="timeContainer"
-                  spacing="10"
-                  prefWidth="480"/>
-        </content>
-    </ScrollPane>
+    <!-- Time tags -->
+    <HBox fx:id="timeContainer"
+          layoutX="40" layoutY="200"
+          spacing="10" alignment="CENTER_LEFT">
+        <!-- Controller will inject one or more time-tag buttons + one ➕-->
+    </HBox>
+
+    <Button layoutX="320" layoutY="200"
+            text="➕"
+            onAction="#handlePlus"
+            styleClass="add-time-button"/>
 
     <!-- Additional Info -->
-    <TextArea fx:id="infoArea"
-              layoutX="150" layoutY="280"
-              promptText="Additional Information :"
-              wrapText="true"
-              prefWidth="500" prefHeight="120"
-              styleClass="row-container"/>
+    <HBox layoutX="40" layoutY="280" spacing="10" alignment="CENTER_LEFT">
+        <Label text="Additional Information :" styleClass="pill-label"/>
+        <TextField fx:id="infoArea"
+                   promptText="Take after eating"
+                   styleClass="info-input"/>
+    </HBox>
 
-    <!-- Cancel / Add -->
-    <HBox layoutX="150" layoutY="430" spacing="50">
-        <Button text="Cancel"
+    <!-- Action Buttons -->
+    <HBox layoutX="40" layoutY="360" spacing="20" alignment="CENTER_LEFT">
+        <Button text="Go back"
                 onAction="#handleCancel"
-                prefWidth="180" prefHeight="50"
-                styleClass="blue-button"/>
+                styleClass="exit-button-large"/>
         <Button text="Add"
                 onAction="#handleAdd"
-                prefWidth="180" prefHeight="50"
-                styleClass="exit-button"/>
+                styleClass="blue-button-large"/>
     </HBox>
+
 </AnchorPane>

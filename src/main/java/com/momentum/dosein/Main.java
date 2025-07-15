@@ -20,11 +20,13 @@ public class Main extends Application {
         );
 
         // Set window title and icon
-        stage.setTitle("DoseIn - Dashboard");
+        stage.setTitle("DoseIn : Complete Medicine Companion");
         Image icon = new Image(
                 getClass().getResourceAsStream("/com/momentum/dosein/images/appicon.png")
         );
         stage.getIcons().add(icon);
+
+        stage.setResizable(false);
 
         // Show the window
         stage.setScene(scene);
