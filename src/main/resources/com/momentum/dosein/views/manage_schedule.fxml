@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.momentum.dosein.controllers.ManageScheduleController"
+            stylesheets="@../css/style.css"
+            prefWidth="600" prefHeight="400">
+
+    <!-- TITLE -->
+    <top>
+        <VBox alignment="CENTER" spacing="5">
+            <padding><Insets top="15"/></padding>
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Manage" styleClass="title-dark"/>
+                <Label text="Schedule" styleClass="title-green"/>
+            </HBox>
+            <Label text="Stay on track with your medication by setting a reminder!" styleClass="subtitle-text"/>
+        </VBox>
+    </top>
+
+    <!-- MAIN CONTENT -->
+    <center>
+        <HBox spacing="15">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+            <!-- Active Alerts List -->
+            <VBox styleClass="reminder-panel" prefWidth="180">
+                <Label text="Active Alerts" styleClass="section-label"/>
+                <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="AS_NEEDED" vbarPolicy="NEVER">
+                    <VBox fx:id="alertsContainer" spacing="8">
+                        <padding><Insets top="8" right="8" bottom="8" left="8"/></padding>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+
+            <!-- Medicine Information -->
+            <VBox spacing="12" VBox.vgrow="ALWAYS">
+                <GridPane hgap="10" vgap="8">
+                    <!-- Pill Name -->
+                    <Label text="Pill Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+                    <Label fx:id="pillNameLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                    <!-- Start Date -->
+                    <Label text="Start Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+                    <Label fx:id="startDateLabel" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <!-- End Date -->
+                    <Label text="End Date:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+                    <Label fx:id="endDateLabel" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <!-- Additional Info -->
+                    <Label text="Additional Information:" GridPane.rowIndex="3" GridPane.columnIndex="0" styleClass="form-label"/>
+                    <Label fx:id="additionalInfoLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+                    <!-- Alert Time label on its own row -->
+                    <Label text="Alert Time:" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="4" styleClass="form-label"/>
+
+                    <!-- Scrollable times on the next row -->
+                    <ScrollPane GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="4"
+                                fitToHeight="true" fitToWidth="false"
+                                hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"
+                                prefHeight="60" style="-fx-background:transparent; -fx-border:transparent;">
+                        <HBox fx:id="timesContainer" spacing="8">
+                            <padding><Insets top="4" right="4" bottom="4" left="4"/></padding>
+                        </HBox>
+                    </ScrollPane>
+                </GridPane>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- ACTION BUTTONS -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER">
+            <padding><Insets bottom="15"/></padding>
+            <Button text="Go back" onAction="#handleBack" styleClass="back-btn"/>
+            <Button text="Delete"  onAction="#handleDelete" styleClass="delete-btn"/>
+        </HBox>
+    </bottom>
+</BorderPane>

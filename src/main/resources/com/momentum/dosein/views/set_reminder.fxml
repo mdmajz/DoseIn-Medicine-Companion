@@ -1,62 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.momentum.dosein.controllers.SetReminderController"
-            prefWidth="800" prefHeight="500"
             stylesheets="@../css/style.css"
-            styleClass="add-root">
+            prefWidth="600" prefHeight="400">
 
-    <!-- Header -->
-    <Label layoutX="40"  layoutY="20"
-           text="Set "
-           styleClass="title-hello"/>
-    <Label layoutX="100" layoutY="20"
-           text="Reminder"
-           styleClass="title-accent"/>
-    <Label layoutX="40" layoutY="60"
-           text="Stay on track with your medication by setting a reminder!"
-           styleClass="subtitle"/>
+    <!-- TITLE -->
+    <top>
+        <VBox alignment="CENTER" spacing="5">
+            <padding>
+                <Insets top="15" right="0" bottom="0" left="0"/>
+            </padding>
+            <HBox alignment="CENTER" spacing="5">
+                <Label text="Set" styleClass="title-dark"/>
+                <Label text="Reminder" styleClass="title-green"/>
+            </HBox>
+            <Label text="Stay on track with your medication by setting a reminder!" styleClass="subtitle-text"/>
+        </VBox>
+    </top>
 
-    <!-- Pill Name -->
-    <HBox layoutX="40" layoutY="120" spacing="10" alignment="CENTER_LEFT">
-        <Label text="Pill Name:" styleClass="pill-label"/>
-        <TextField fx:id="pillNameField"
-                   promptText="e.g. Napa 250 Mg"
-                   styleClass="pill-input"/>
-    </HBox>
+    <!-- FORM & TIMES -->
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
 
-    <!-- Time tags -->
-    <HBox fx:id="timeContainer"
-          layoutX="40" layoutY="200"
-          spacing="10" alignment="CENTER_LEFT">
-        <!-- Controller will inject one or more time-tag buttons + one ➕-->
-    </HBox>
+            <!-- Form fields -->
+            <GridPane hgap="10" vgap="8">
+                <Label text="Pill Name:" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="form-label"/>
+                <TextField fx:id="pillNameField" promptText="e.g. Pill Name 250 Mg"
+                           GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="form-field"/>
 
-    <Button layoutX="320" layoutY="200"
-            text="➕"
-            onAction="#handlePlus"
-            styleClass="add-time-button"/>
+                <Label text="Start Date:" GridPane.rowIndex="1" GridPane.columnIndex="0" styleClass="form-label"/>
+                <DatePicker fx:id="startDatePicker"
+                            GridPane.rowIndex="1" GridPane.columnIndex="1" styleClass="form-field"/>
 
-    <!-- Additional Info -->
-    <HBox layoutX="40" layoutY="280" spacing="10" alignment="CENTER_LEFT">
-        <Label text="Additional Information :" styleClass="pill-label"/>
-        <TextField fx:id="infoArea"
-                   promptText="Take after eating"
-                   styleClass="info-input"/>
-    </HBox>
+                <Label text="End Date:" GridPane.rowIndex="1" GridPane.columnIndex="2" styleClass="form-label"/>
+                <DatePicker fx:id="endDatePicker"
+                            GridPane.rowIndex="1" GridPane.columnIndex="3" styleClass="form-field"/>
 
-    <!-- Action Buttons -->
-    <HBox layoutX="40" layoutY="360" spacing="20" alignment="CENTER_LEFT">
-        <Button text="Go back"
-                onAction="#handleCancel"
-                styleClass="exit-button-large"/>
-        <Button text="Add"
-                onAction="#handleAdd"
-                styleClass="blue-button-large"/>
-    </HBox>
+                <Label text="Additional Information:" GridPane.rowIndex="2" GridPane.columnIndex="0" styleClass="form-label"/>
+                <TextField fx:id="additionalInfoField" promptText="e.g. Take after eating"
+                           GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3" styleClass="form-field"/>
+            </GridPane>
 
-</AnchorPane>
+            <!-- Reminder times list -->
+            <Label text="Reminder Time" styleClass="section-label"/>
+
+            <!-- **Horizontally scrolling box** -->
+            <ScrollPane fitToHeight="true"
+                        fitToWidth="false"
+                        hbarPolicy="AS_NEEDED"
+                        vbarPolicy="NEVER"
+                        prefHeight="60"
+                        style="-fx-background:transparent; -fx-border:transparent;">
+                <HBox fx:id="timesContainer" spacing="8">
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="5"/>
+                    </padding>
+                </HBox>
+            </ScrollPane>
+
+            <!-- Time input controls -->
+            <HBox spacing="8" alignment="CENTER">
+                <TextField fx:id="hourField" promptText="HH" prefWidth="40" styleClass="time-input"/>
+                <Label text=":"/>
+                <TextField fx:id="minuteField" promptText="MM" prefWidth="40" styleClass="time-input"/>
+                <ChoiceBox fx:id="amPmChoice" styleClass="time-choice"/>
+                <Button text="Remove Time" onAction="#handleRemoveTime" styleClass="remove-time-btn"/>
+                <Button text="Add Time"    onAction="#handleAddTime"    styleClass="add-time-btn"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- ACTION BUTTONS -->
+    <bottom>
+        <HBox spacing="15" alignment="CENTER">
+            <padding>
+                <Insets top="0" right="0" bottom="15" left="0"/>
+            </padding>
+            <Button text="Go back" onAction="#handleBack"   styleClass="back-btn"/>
+            <Button text="Add"     onAction="#handleSubmit" styleClass="submit-btn"/>
+        </HBox>
+    </bottom>
+</BorderPane>
