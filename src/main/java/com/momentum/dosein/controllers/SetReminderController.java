@@ -7,7 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -15,15 +19,15 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class SetReminderController implements Initializable {
-
     @FXML private TextField pillNameField;
     @FXML private DatePicker startDatePicker;
     @FXML private DatePicker endDatePicker;
     @FXML private TextField additionalInfoField;
-
     @FXML private HBox timesContainer;
     @FXML private TextField hourField;
     @FXML private TextField minuteField;
@@ -31,10 +35,10 @@ public class SetReminderController implements Initializable {
 
     private final List<String> times = new ArrayList<>();
     private final DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("hh:mm a");
+    private final DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Populate AM/PM choices
         amPmChoice.getItems().addAll("AM", "PM");
         amPmChoice.setValue("AM");
     }
@@ -60,7 +64,6 @@ public class SetReminderController implements Initializable {
             }
             times.add(formatted);
 
-            // Create a little card button
             Button b = new Button(formatted);
             b.getStyleClass().add("time-card");
             b.setOnAction(e -> {
@@ -110,22 +113,22 @@ public class SetReminderController implements Initializable {
             return;
         }
 
-        // Save each time as an individual reminder entry
+        String startS = sd.format(dateFmt);
+        String endS   = ed.format(dateFmt);
         for (String t : times) {
-            String desc = pill + (info.isEmpty() ? "" : " – " + info);
-            Reminder r = new Reminder(t, desc);
+            Reminder r = new Reminder(t, pill, info, startS, endS);
             FileManager.saveReminder(r);
         }
 
-        Alert a = new Alert(Alert.AlertType.INFORMATION, "Reminder set successfully!");
-        a.setHeaderText(null);
-        a.showAndWait();
+        Alert done = new Alert(Alert.AlertType.INFORMATION, "Reminder set successfully!");
+        done.setHeaderText(null);
+        done.showAndWait();
         handleBack();
     }
 
     private void showError(String msg) {
-        Alert a = new Alert(Alert.AlertType.ERROR, msg);
-        a.setHeaderText(null);
-        a.showAndWait();
+        Alert err = new Alert(Alert.AlertType.ERROR, msg);
+        err.setHeaderText(null);
+        err.showAndWait();
     }
 }

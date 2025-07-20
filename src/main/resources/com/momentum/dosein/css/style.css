@@ -172,3 +172,22 @@
     -fx-text-fill: white;
     -fx-pref-width: 80;
 }
+
+/* Left-side alert items */
+.alert-item {
+    -fx-font-size: 12px;
+    -fx-text-fill: #44bd32;
+    -fx-cursor: hand;
+}
+.alert-selected {
+    -fx-background-color: #44bd32;
+    -fx-text-fill: white;
+    -fx-background-radius: 4;
+}
+
+/* Delete button */
+.delete-btn {
+    -fx-background-color: #ff7675;
+    -fx-text-fill: white;
+    -fx-pref-width: 80;
+}

@@ -54,7 +54,13 @@
 
             <!-- Reminder times list -->
             <Label text="Reminder Time" styleClass="section-label"/>
-            <ScrollPane fitToWidth="true" prefHeight="60"
+
+            <!-- **Horizontally scrolling box** -->
+            <ScrollPane fitToHeight="true"
+                        fitToWidth="false"
+                        hbarPolicy="AS_NEEDED"
+                        vbarPolicy="NEVER"
+                        prefHeight="60"
                         style="-fx-background:transparent; -fx-border:transparent;">
                 <HBox fx:id="timesContainer" spacing="8">
                     <padding>
@@ -68,7 +74,6 @@
                 <TextField fx:id="hourField" promptText="HH" prefWidth="40" styleClass="time-input"/>
                 <Label text=":"/>
                 <TextField fx:id="minuteField" promptText="MM" prefWidth="40" styleClass="time-input"/>
-                <!-- choice items added in controller -->
                 <ChoiceBox fx:id="amPmChoice" styleClass="time-choice"/>
                 <Button text="Remove Time" onAction="#handleRemoveTime" styleClass="remove-time-btn"/>
                 <Button text="Add Time"    onAction="#handleAddTime"    styleClass="add-time-btn"/>

@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -76,7 +77,15 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void handleManage(ActionEvent event) {
-        showInfo("Manage clicked", "Manage Reminders");
+        try {
+            Stage st = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Parent man = FXMLLoader.load(
+                    getClass().getResource("/com/momentum/dosein/views/manage_schedule.fxml")
+            );
+            st.setScene(new Scene(man, 600, 400));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
