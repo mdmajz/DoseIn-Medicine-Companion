@@ -4,127 +4,118 @@ import com.momentum.dosein.models.Reminder;
 import com.momentum.dosein.utils.FileManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
+import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class DashboardController {
-    @FXML private Label usernameLabel;
-    @FXML private Label currentTime;
+public class DashboardController implements Initializable {
+
+    @FXML private Label clockLabel;
     @FXML private VBox reminderContainer;
-    @FXML private Button profileButton;
-    @FXML private Button historyButton;
 
-    // include seconds
-    private final DateTimeFormatter timeFmt =
-            DateTimeFormatter.ofPattern("hh : mm : ss a");
-    private final ObservableList<Reminder> masterReminders =
-            FXCollections.observableArrayList();
-
-    @FXML
-    public void initialize() {
-        usernameLabel.setText("User !");
-        loadReminders();
-        startClock();
-    }
-
-    private void startClock() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // 1) Start live clock with seconds
+        DateTimeFormatter clockFmt = DateTimeFormatter.ofPattern("hh:mm:ss a");
         Timeline clock = new Timeline(
-                new KeyFrame(Duration.ZERO, e -> {
-                    LocalTime now = LocalTime.now();
-                    currentTime.setText(now.format(timeFmt));
-                    refreshReminders(now);
-                }),
+                new KeyFrame(Duration.ZERO, e -> clockLabel.setText(LocalTime.now().format(clockFmt))),
                 new KeyFrame(Duration.seconds(1))
         );
         clock.setCycleCount(Timeline.INDEFINITE);
         clock.play();
-    }
 
-    private void loadReminders() {
-        try {
-            List<Reminder> list = FileManager.loadReminders();
-            masterReminders.setAll(list);
-        } catch (IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
+        // 2) Load and display saved reminders
+        List<Reminder> reminders = FileManager.loadReminders();
+        for (Reminder r : reminders) {
+            HBox row = new HBox(6);
+            row.setPadding(new Insets(4));
+            Label time = new Label(r.getTime());
+            time.getStyleClass().add("time-label");
+            Label desc = new Label(r.getDescription());
+            desc.getStyleClass().add("desc-label");
+            row.getChildren().addAll(time, desc);
+            reminderContainer.getChildren().add(row);
         }
     }
 
-    private void refreshReminders(LocalTime now) {
-        reminderContainer.getChildren().clear();
-        masterReminders.stream()
-                .filter(r -> !r.getTime().isBefore(now))
-                .sorted(Comparator.comparing(Reminder::getTime))
-                .forEach(r -> {
-                    Label t = new Label(r.getTime().format(timeFmt));
-                    t.getStyleClass().add("reminder-item-time");
-                    String notes = (r.getNotes() == null || r.getNotes().isEmpty())
-                            ? "" : " (" + r.getNotes() + ")";
-                    Label d = new Label(r.getMedicine() + notes);
-                    d.getStyleClass().add("reminder-item-desc");
-                    VBox box = new VBox(5, t, d);
-                    reminderContainer.getChildren().add(box);
-                });
+    @FXML
+    private void handleSettings(ActionEvent event) {
+        showInfo("Settings clicked", "Settings");
     }
 
-    @FXML private void handleEditProfile(ActionEvent e) {
-        System.out.println("Profile clicked");
-    }
-    @FXML private void handleHistory(ActionEvent e) {
-        System.out.println("History clicked");
-    }
-    @FXML private void handleSetReminder(ActionEvent e) {
-        switchScene(e,
-                "/com/momentum/dosein/views/set_reminder.fxml",
-                "DoseIn");
-    }
-    @FXML private void handleManage(ActionEvent e) {
-        System.out.println("Manage clicked");
-    }
-    @FXML private void handleDoctors(ActionEvent e) {
-        System.out.println("Doctors clicked");
-    }
-    @FXML private void handleEmergency(ActionEvent e) {
-        System.out.println("Emergency clicked");
-    }
-    @FXML private void handleAboutUs(ActionEvent e) {
-        System.out.println("About Us clicked");
-    }
-    @FXML private void handleSignOut(ActionEvent e) {
-        System.out.println("Sign Out clicked");
-    }
-
-    /** Helper to swap scenes */
-    private void switchScene(ActionEvent e, String fxmlPath, String title) {
+    @FXML
+    private void handleSetReminder(ActionEvent event) {
         try {
-            Stage stage = (Stage)((Button)e.getSource())
-                    .getScene().getWindow();
-            Parent root = FXMLLoader.load(
-                    getClass().getResource(fxmlPath));
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(
-                    getClass().getResource(
-                            "/com/momentum/dosein/css/style.css"
-                    ).toExternalForm());
-            stage.setTitle(title);
-            stage.setScene(scene);
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            Stage st = (Stage)((Node)event.getSource()).getScene().getWindow();
+            Parent rem = FXMLLoader.load(
+                    getClass().getResource("/com/momentum/dosein/views/set_reminder.fxml")
+            );
+            st.setScene(new Scene(rem, 600, 400));
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Unable to open Set Reminder screen");
         }
+    }
+
+    @FXML
+    private void handleManage(ActionEvent event) {
+        showInfo("Manage clicked", "Manage Reminders");
+    }
+
+    @FXML
+    private void handleDoctors(ActionEvent event) {
+        showInfo(
+                "Dr. Smith – Cardiologist\nDr. Emily – General Physician\nDr. John – Neurologist",
+                "Doctors"
+        );
+    }
+
+    @FXML
+    private void handleEmergency(ActionEvent event) {
+        showInfo(
+                "🚨 999 (Ambulance)\n🚓 100 (Police)\n🏥 12345 (Nearest Hospital)",
+                "Emergency Helpline"
+        );
+    }
+
+    @FXML
+    private void handleAbout(ActionEvent event) {
+        showInfo("DoseIn v1.0\nDeveloped by Momentum Team\nYour health companion!", "About Us");
+    }
+
+    @FXML
+    private void handleSignOut(ActionEvent event) {
+        showInfo("Signed out", "Sign Out");
+    }
+
+    private void showInfo(String text, String title) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION, text);
+        a.setHeaderText(null);
+        a.setTitle(title);
+        a.showAndWait();
+    }
+
+    private void showError(String text) {
+        Alert a = new Alert(Alert.AlertType.ERROR, text);
+        a.setHeaderText(null);
+        a.setTitle("Error");
+        a.showAndWait();
     }
 }

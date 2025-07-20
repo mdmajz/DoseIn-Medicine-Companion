@@ -1,21 +1,19 @@
 package com.momentum.dosein.models;
 
-import java.io.Serializable;
-import java.time.LocalTime;
+public class Reminder {
+    private final String time;
+    private final String description;
 
-public class Reminder implements Serializable {
-    private static final long serialVersionUID = 1L;
-    private LocalTime time;
-    private String medicine;
-    private String notes;
-
-    public Reminder(LocalTime time, String medicine, String notes) {
+    public Reminder(String time, String description) {
         this.time = time;
-        this.medicine = medicine;
-        this.notes = notes;
+        this.description = description;
     }
 
-    public LocalTime getTime() { return time; }
-    public String getMedicine() { return medicine; }
-    public String getNotes() { return notes; }
+    public String getTime() {
+        return time;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
