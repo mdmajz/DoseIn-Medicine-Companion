@@ -91,7 +91,7 @@ public class DashboardController {
     @FXML private void handleSetReminder(ActionEvent e) {
         switchScene(e,
                 "/com/momentum/dosein/views/set_reminder.fxml",
-                "DoseIn - Set Reminder");
+                "DoseIn");
     }
     @FXML private void handleManage(ActionEvent e) {
         System.out.println("Manage clicked");

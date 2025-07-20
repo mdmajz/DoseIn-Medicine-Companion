@@ -1,62 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/24.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.momentum.dosein.controllers.SetReminderController"
-            prefWidth="800" prefHeight="500"
+            styleClass="add-root"
             stylesheets="@../css/style.css"
-            styleClass="add-root">
+            prefWidth="800" prefHeight="500">
 
-    <!-- Header -->
-    <Label layoutX="40"  layoutY="20"
-           text="Set "
-           styleClass="title-hello"/>
-    <Label layoutX="100" layoutY="20"
-           text="Reminder"
-           styleClass="title-accent"/>
-    <Label layoutX="40" layoutY="60"
-           text="Stay on track with your medication by setting a reminder!"
-           styleClass="subtitle"/>
+   <!-- Title -->
+   <HBox spacing="5" alignment="CENTER"
+         AnchorPane.topAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+      <Region HBox.hgrow="ALWAYS"/>
+      <Label styleClass="title-hello" text="Set "/>
+      <Label styleClass="title-accent" text="Reminder"/>
+      <Region HBox.hgrow="ALWAYS"/>
+   </HBox>
 
-    <!-- Pill Name -->
-    <HBox layoutX="40" layoutY="120" spacing="10" alignment="CENTER_LEFT">
-        <Label text="Pill Name:" styleClass="pill-label"/>
-        <TextField fx:id="pillNameField"
-                   promptText="e.g. Napa 250 Mg"
-                   styleClass="pill-input"/>
-    </HBox>
+   <!-- Subtitle -->
+   <Label text="Stay on track with your medication by setting a reminder!"
+          styleClass="subtitle"
+          AnchorPane.topAnchor="90" AnchorPane.leftAnchor="100"/>
 
-    <!-- Time tags -->
-    <HBox fx:id="timeContainer"
-          layoutX="40" layoutY="200"
-          spacing="10" alignment="CENTER_LEFT">
-        <!-- Controller will inject one or more time-tag buttons + one ➕-->
-    </HBox>
+   <!-- Pill Name -->
+   <HBox spacing="10" alignment="CENTER_LEFT"
+         AnchorPane.topAnchor="140" AnchorPane.leftAnchor="80" AnchorPane.rightAnchor="80">
+      <Label styleClass="pill-label" text="Pill Name :"/>
+      <TextField fx:id="pillNameField"
+                 promptText="e.g. Napa 250 Mg"
+                 styleClass="pill-input"
+                 HBox.hgrow="ALWAYS"/>
+   </HBox>
 
-    <Button layoutX="320" layoutY="200"
-            text="➕"
-            onAction="#handlePlus"
-            styleClass="add-time-button"/>
+   <!-- Start / End Date -->
+   <HBox spacing="10" alignment="CENTER_LEFT"
+         AnchorPane.topAnchor="200" AnchorPane.leftAnchor="80" AnchorPane.rightAnchor="80">
+      <Label styleClass="pill-label" text="Start Date :"/>
+      <DatePicker fx:id="startDatePicker" styleClass="date-field"/>
+      <Label styleClass="pill-label" text="End Date   :"/>
+      <DatePicker fx:id="endDatePicker" styleClass="date-field"/>
+   </HBox>
 
-    <!-- Additional Info -->
-    <HBox layoutX="40" layoutY="280" spacing="10" alignment="CENTER_LEFT">
-        <Label text="Additional Information :" styleClass="pill-label"/>
-        <TextField fx:id="infoArea"
-                   promptText="Take after eating"
-                   styleClass="info-input"/>
-    </HBox>
+   <!-- Time Slots -->
+   <HBox spacing="10" alignment="CENTER_LEFT"
+         AnchorPane.topAnchor="260" AnchorPane.leftAnchor="80" AnchorPane.rightAnchor="80">
+      <Label styleClass="pill-label" text="Time :"/>
 
-    <!-- Action Buttons -->
-    <HBox layoutX="40" layoutY="360" spacing="20" alignment="CENTER_LEFT">
-        <Button text="Go back"
-                onAction="#handleCancel"
-                styleClass="exit-button-large"/>
-        <Button text="Add"
-                onAction="#handleAdd"
-                styleClass="blue-button-large"/>
-    </HBox>
+      <!-- slots go here -->
+      <FlowPane fx:id="timeContainer"
+                hgap="10" vgap="10"
+                prefWidth="450" prefHeight="80"
+                alignment="CENTER_LEFT"/>
+
+      <Button fx:id="addTimeButton"
+              onAction="#handlePlus"
+              styleClass="add-time-button"
+              text="+"/>
+      <Button fx:id="removeTimeButton"
+              onAction="#handleMinus"
+              styleClass="add-time-button"
+              text="–"/>
+   </HBox>
+
+   <!-- Additional Info -->
+   <HBox spacing="10" alignment="CENTER_LEFT"
+         AnchorPane.topAnchor="330" AnchorPane.leftAnchor="80" AnchorPane.rightAnchor="80">
+      <Label styleClass="pill-label" text="Additional Information :"/>
+      <TextField fx:id="infoArea"
+                 promptText="Take after eating"
+                 styleClass="info-input"
+                 HBox.hgrow="ALWAYS"/>
+   </HBox>
+
+   <!-- Go Back / Add -->
+   <HBox spacing="20" alignment="CENTER"
+         AnchorPane.bottomAnchor="40" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+      <Region HBox.hgrow="ALWAYS"/>
+      <Button onAction="#handleCancel"
+              styleClass="go-back-button"
+              text="Go Back"/>
+      <Button onAction="#handleAdd"
+              styleClass="add-button"
+              text="Add"/>
+      <Region HBox.hgrow="ALWAYS"/>
+   </HBox>
 
 </AnchorPane>
