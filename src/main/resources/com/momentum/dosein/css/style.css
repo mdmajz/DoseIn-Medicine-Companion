@@ -492,7 +492,9 @@
 
 
 .about-root {
-    -fx-background-color: #fafafa;
+    -fx-background-color:
+            linear-gradient(to bottom, #fafafa 0%, #f0f2f5 100%);
+    /* or: url("/images/pattern.png"); */
 }
 
 /* Global font */
@@ -547,4 +549,11 @@
     -fx-background-color: #8dd696;
     -fx-text-fill: #283545;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}
+
+.card {
+    -fx-background-color: rgba(255,255,255,0.85);
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
 }
