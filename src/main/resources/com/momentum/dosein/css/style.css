@@ -1,4 +1,4 @@
-/* ========== Cards ========== */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
 .card {
     -fx-background-radius: 8;
     -fx-padding: 12;
@@ -491,5 +491,60 @@
 
 
 
-/* ===== Feature Cards ===== */
-/* Reuses your existing .card, .feature-card, .about-card, .signout-card */
+.about-root {
+    -fx-background-color: #fafafa;
+}
+
+/* Global font */
+.root, .button {
+    -fx-font-family: "Poppins";
+}
+
+/* Headings */
+.heading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #283545;
+}
+.heading-accent {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8dd696;
+}
+
+/* Subheading */
+.subheading {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #283545;
+}
+
+/* Names (two-line, bold) */
+.names-bold {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #283545;
+}
+
+/* Footer lines */
+.footer {
+    -fx-font-size: 10px;
+    -fx-text-fill: #283545;
+}
+
+/* Go back button */
+.go-back-button {
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-pref-width: 120px;
+    -fx-pref-height: 32px;
+    -fx-background-color: #283545;
+    -fx-text-fill: #fafafa;
+    -fx-background-radius: 4;
+    -fx-cursor: hand;
+}
+.go-back-button:hover {
+    -fx-background-color: #8dd696;
+    -fx-text-fill: #283545;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 2);
+}

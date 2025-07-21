@@ -20,15 +20,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 public class DashboardController {
 
@@ -37,7 +31,7 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        // 1) Live clock (unchanged)
+        // Live clock
         DateTimeFormatter dtfClock = DateTimeFormatter.ofPattern("hh:mm:ss a");
         Timeline clock = new Timeline(
                 new KeyFrame(Duration.ZERO, e ->
@@ -48,52 +42,64 @@ public class DashboardController {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
 
-        // 2) Load reminders and sort by time
+        // Load & sort reminders
         DateTimeFormatter tf = DateTimeFormatter.ofPattern("hh:mm a");
         List<Reminder> reminders = FileManager.loadReminders();
         reminders.sort(Comparator.comparing(r ->
                 LocalTime.parse(r.getTime(), tf)
         ));
 
-        // 3) Map to display strings
+        // Map to display strings
         List<String> display = reminders.stream()
                 .map(r -> {
                     String notes = r.getAdditional() != null && !r.getAdditional().isBlank()
                             ? " — " + r.getAdditional()
                             : "";
-                    return String.format("%s — %s%s", r.getTime(), r.getMedicineName(), notes);
+                    return String.format("%s — %s%s",
+                            r.getTime(),
+                            r.getMedicineName(),
+                            notes
+                    );
                 })
                 .collect(Collectors.toList());
 
-        // 4) Populate the ListView
         upcomingList.setItems(FXCollections.observableList(display));
     }
 
-
     @FXML private void handleSetReminder(ActionEvent e) {
-        load(e, "/com/momentum/dosein/views/set_reminder.fxml", 600,400);
+        load(e, "/com/momentum/dosein/views/set_reminder.fxml", 600, 400);
     }
-    @FXML private void handleManage(ActionEvent e)    {
-        load(e, "/com/momentum/dosein/views/manage_schedule.fxml",600,400);
+    @FXML private void handleManage(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/manage_schedule.fxml", 600, 400);
     }
-    @FXML private void handleDoctors(ActionEvent e)   {
-        load(e, "/com/momentum/dosein/views/doctor_contacts.fxml",600,400);
+    @FXML private void handleDoctors(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/doctor_contacts.fxml", 600, 400);
     }
     @FXML private void handleEmergency(ActionEvent e) {
-        load(e, "/com/momentum/dosein/views/emergency.fxml",    800,500);
+        load(e, "/com/momentum/dosein/views/emergency.fxml", 600, 400);
     }
-    @FXML private void handleAbout(ActionEvent e)     {
-        load(e, "/com/momentum/dosein/views/about.fxml",       600,400);
+    @FXML private void handleAbout(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/about_us.fxml", 600, 400);
     }
-    @FXML private void handleSignOut(ActionEvent e)   {
-        load(e, "/com/momentum/dosein/views/login.fxml",       600,400);
+    @FXML private void handleSignOut(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/login.fxml", 600, 400);
     }
 
+    /**
+     * Loads the given FXML, wraps it in a Scene (w×h), applies the stylesheet,
+     * and swaps the current Stage’s scene.
+     */
     private void load(ActionEvent e, String fxml, int w, int h) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxml));
-            Stage st = (Stage)((Node)e.getSource()).getScene().getWindow();
-            st.setScene(new Scene(root, w, h));
+            Scene scene = new Scene(root, w, h);
+            scene.getStylesheets().add(
+                    getClass()
+                            .getResource("/com/momentum/dosein/css/style.css")
+                            .toExternalForm()
+            );
+            Stage stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+            stage.setScene(scene);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
