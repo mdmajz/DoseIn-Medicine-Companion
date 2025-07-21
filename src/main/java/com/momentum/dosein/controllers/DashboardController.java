@@ -2,129 +2,100 @@ package com.momentum.dosein.controllers;
 
 import com.momentum.dosein.models.Reminder;
 import com.momentum.dosein.utils.FileManager;
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-public class DashboardController implements Initializable {
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
-    @FXML private Label clockLabel;
-    @FXML private VBox reminderContainer;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // 1) Start live clock with seconds
-        DateTimeFormatter clockFmt = DateTimeFormatter.ofPattern("hh:mm:ss a");
+public class DashboardController {
+
+    @FXML private Label timeLabel;
+    @FXML private ListView<String> upcomingList;
+
+    @FXML
+    public void initialize() {
+        // 1) Live clock (unchanged)
+        DateTimeFormatter dtfClock = DateTimeFormatter.ofPattern("hh:mm:ss a");
         Timeline clock = new Timeline(
-                new KeyFrame(Duration.ZERO, e -> clockLabel.setText(LocalTime.now().format(clockFmt))),
+                new KeyFrame(Duration.ZERO, e ->
+                        timeLabel.setText(LocalTime.now().format(dtfClock))
+                ),
                 new KeyFrame(Duration.seconds(1))
         );
-        clock.setCycleCount(Timeline.INDEFINITE);
+        clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
 
-        // 2) Load and display saved reminders
+        // 2) Load reminders and sort by time
+        DateTimeFormatter tf = DateTimeFormatter.ofPattern("hh:mm a");
         List<Reminder> reminders = FileManager.loadReminders();
-        for (Reminder r : reminders) {
-            HBox row = new HBox(6);
-            row.setPadding(new Insets(4));
-            Label time = new Label(r.getTime());
-            time.getStyleClass().add("time-label");
-            Label desc = new Label(r.getDescription());
-            desc.getStyleClass().add("desc-label");
-            row.getChildren().addAll(time, desc);
-            reminderContainer.getChildren().add(row);
-        }
+        reminders.sort(Comparator.comparing(r ->
+                LocalTime.parse(r.getTime(), tf)
+        ));
+
+        // 3) Map to display strings
+        List<String> display = reminders.stream()
+                .map(r -> {
+                    String notes = r.getAdditional() != null && !r.getAdditional().isBlank()
+                            ? " — " + r.getAdditional()
+                            : "";
+                    return String.format("%s — %s%s", r.getTime(), r.getMedicineName(), notes);
+                })
+                .collect(Collectors.toList());
+
+        // 4) Populate the ListView
+        upcomingList.setItems(FXCollections.observableList(display));
     }
 
-    @FXML
-    private void handleSettings(ActionEvent event) {
-        showInfo("Settings clicked", "Settings");
+
+    @FXML private void handleSetReminder(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/set_reminder.fxml", 600,400);
+    }
+    @FXML private void handleManage(ActionEvent e)    {
+        load(e, "/com/momentum/dosein/views/manage_schedule.fxml",600,400);
+    }
+    @FXML private void handleDoctors(ActionEvent e)   {
+        load(e, "/com/momentum/dosein/views/doctor_contacts.fxml",600,400);
+    }
+    @FXML private void handleEmergency(ActionEvent e) {
+        load(e, "/com/momentum/dosein/views/emergency.fxml",    800,500);
+    }
+    @FXML private void handleAbout(ActionEvent e)     {
+        load(e, "/com/momentum/dosein/views/about.fxml",       600,400);
+    }
+    @FXML private void handleSignOut(ActionEvent e)   {
+        load(e, "/com/momentum/dosein/views/login.fxml",       600,400);
     }
 
-    @FXML
-    private void handleSetReminder(ActionEvent event) {
+    private void load(ActionEvent e, String fxml, int w, int h) {
         try {
-            Stage st = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Parent rem = FXMLLoader.load(
-                    getClass().getResource("/com/momentum/dosein/views/set_reminder.fxml")
-            );
-            st.setScene(new Scene(rem, 600, 400));
-        } catch (Exception e) {
-            e.printStackTrace();
-            showError("Unable to open Set Reminder screen");
+            Parent root = FXMLLoader.load(getClass().getResource(fxml));
+            Stage st = (Stage)((Node)e.getSource()).getScene().getWindow();
+            st.setScene(new Scene(root, w, h));
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-    }
-
-    @FXML
-    private void handleManage(ActionEvent event) {
-        try {
-            Stage st = (Stage)((Node)event.getSource()).getScene().getWindow();
-            Parent man = FXMLLoader.load(
-                    getClass().getResource("/com/momentum/dosein/views/manage_schedule.fxml")
-            );
-            st.setScene(new Scene(man, 600, 400));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void handleDoctors(ActionEvent event) {
-        showInfo(
-                "Dr. Smith – Cardiologist\nDr. Emily – General Physician\nDr. John – Neurologist",
-                "Doctors"
-        );
-    }
-
-    @FXML
-    private void handleEmergency(ActionEvent event) {
-        showInfo(
-                "🚨 999 (Ambulance)\n🚓 100 (Police)\n🏥 12345 (Nearest Hospital)",
-                "Emergency Helpline"
-        );
-    }
-
-    @FXML
-    private void handleAbout(ActionEvent event) {
-        showInfo("DoseIn v1.0\nDeveloped by Momentum Team\nYour health companion!", "About Us");
-    }
-
-    @FXML
-    private void handleSignOut(ActionEvent event) {
-        showInfo("Signed out", "Sign Out");
-    }
-
-    private void showInfo(String text, String title) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION, text);
-        a.setHeaderText(null);
-        a.setTitle(title);
-        a.showAndWait();
-    }
-
-    private void showError(String text) {
-        Alert a = new Alert(Alert.AlertType.ERROR, text);
-        a.setHeaderText(null);
-        a.setTitle("Error");
-        a.showAndWait();
     }
 }

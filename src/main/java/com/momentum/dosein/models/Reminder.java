@@ -1,28 +1,50 @@
 package com.momentum.dosein.models;
 
-public class Reminder {
-    private final String time;
-    private final String pillName;
-    private final String additionalInfo;
-    private final String startDate;
-    private final String endDate;
+import java.io.Serializable;
 
-    public Reminder(String time, String pillName, String additionalInfo, String startDate, String endDate) {
-        this.time = time;
-        this.pillName = pillName;
-        this.additionalInfo = additionalInfo;
-        this.startDate = startDate;
-        this.endDate = endDate;
+public class Reminder implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String time;
+    private String medicineName;
+    private String additional;  // notes
+    private String startDate;
+    private String endDate;
+
+    public Reminder() { }
+
+    public Reminder(String time,
+                    String medicineName,
+                    String additional,
+                    String startDate,
+                    String endDate) {
+        this.time         = time;
+        this.medicineName = medicineName;
+        this.additional   = additional;
+        this.startDate    = startDate;
+        this.endDate      = endDate;
     }
 
     public String getTime()           { return time; }
-    public String getPillName()       { return pillName; }
-    public String getAdditionalInfo(){ return additionalInfo; }
-    public String getStartDate()      { return startDate; }
-    public String getEndDate()        { return endDate; }
+    public void setTime(String time)  { this.time = time; }
 
-    /** for grouping and display in the lists */
-    public String getDescription() {
-        return pillName + (additionalInfo.isEmpty() ? "" : " – " + additionalInfo);
+    public String getMedicineName()              { return medicineName; }
+    public void setMedicineName(String name)     { this.medicineName = name; }
+
+    public String getAdditional()                { return additional; }
+    public void setAdditional(String additional) { this.additional = additional; }
+
+    public String getStartDate()               { return startDate; }
+    public void setStartDate(String d)         { this.startDate = d; }
+
+    public String getEndDate()                 { return endDate; }
+    public void setEndDate(String d)           { this.endDate = d; }
+
+    @Override
+    public String toString() {
+        String notePart = (additional == null || additional.isBlank())
+                ? ""
+                : " — " + additional;
+        return String.format("%s — %s%s", time, medicineName, notePart);
     }
 }

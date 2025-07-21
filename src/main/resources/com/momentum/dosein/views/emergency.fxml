@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.momentum.dosein.controllers.EmergencyController"
+            stylesheets="@../css/style.css"
+            styleClass="root-pane">
+
+    <!-- Header -->
+    <top>
+        <VBox alignment="CENTER" spacing="4">
+            <padding>
+                <Insets top="20" right="0" bottom="10" left="0"/>
+            </padding>
+            <HBox spacing="0" alignment="CENTER">
+                <Label text="Emergency " styleClass="header-dark"/>
+                <Label text="Helpline"   styleClass="header-green"/>
+            </HBox>
+            <Label text="Quick access to critical healthcare services"
+                   styleClass="header-subtitle"/>
+        </VBox>
+    </top>
+
+    <!-- Content Panels -->
+    <center>
+        <VBox spacing="20">
+            <padding>
+                <Insets top="0" right="20" bottom="0" left="20"/>
+            </padding>
+
+            <HBox spacing="40">
+                <!-- Left Column -->
+                <VBox spacing="10" HBox.hgrow="ALWAYS">
+                    <Label text="Ambulance Services:" styleClass="section-title"/>
+                    <VBox styleClass="info-box">
+                        <VBox spacing="8">
+                            <Label text="National Emergency Service" styleClass="info-heading-green"/>
+                            <Label text="• 999 (Nationwide)"               styleClass="info-value"/>
+                        </VBox>
+                        <VBox spacing="8">
+                            <Label text="Dhaka" styleClass="info-heading-green"/>
+                            <Label text="• Apollo Hospitals: 10678"        styleClass="info-value"/>
+                            <Label text="• Square Hospitals: 01713-072072" styleClass="info-value"/>
+                            <Label text="• Dhaka Medical College: 01711-503030"
+                                   styleClass="info-value"/>
+                        </VBox>
+                        <VBox spacing="8">
+                            <Label text="Chittagong" styleClass="info-heading-green"/>
+                            <Label text="• Chittagong Medical College: 031-619704"
+                                   styleClass="info-value"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+
+                <!-- Right Column -->
+                <VBox spacing="20" HBox.hgrow="NEVER" prefWidth="300">
+                    <VBox spacing="10">
+                        <Label text="Poison Control" styleClass="section-title"/>
+                        <VBox styleClass="info-box">
+                            <Label text="National Poison Information Center"
+                                   styleClass="info-heading-green"/>
+                            <Label text="• Dhaka: 01715-666666" styleClass="info-value"/>
+                        </VBox>
+                    </VBox>
+
+                    <VBox spacing="10">
+                        <Label text="Blood Banks" styleClass="section-title"/>
+                        <VBox styleClass="info-box">
+                            <Label text="Sandhani National Blood Center"
+                                   styleClass="info-heading-green"/>
+                            <Label text="• Dhaka: 01716-302100" styleClass="info-value"/>
+                        </VBox>
+                    </VBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+
+    <!-- Go back -->
+    <bottom>
+        <HBox alignment="CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Button text="Go back"
+                    onAction="#handleBack"
+                    styleClass="btn-dark"
+                    maxWidth="Infinity"/>
+        </HBox>
+    </bottom>
+</BorderPane>

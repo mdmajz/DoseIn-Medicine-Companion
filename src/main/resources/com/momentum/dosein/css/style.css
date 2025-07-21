@@ -191,3 +191,305 @@
     -fx-text-fill: white;
     -fx-pref-width: 80;
 }
+/* === Headers === */
+.header-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+.header-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+/* === Side list pane === */
+.side-pane {
+    -fx-background-color: #1F2937;
+    -fx-padding: 10;
+}
+.section-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #9CA3AF;
+}
+.doctor-list {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+.doctor-list .list-cell:selected {
+    -fx-background-color: #34D399;
+    -fx-text-fill: #1F2937;
+}
+.doctor-list .list-cell {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+/* === Info box === */
+.info-container {
+    -fx-border-color: #1F2937;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+.info-key {
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1F2937;
+}
+.info-value {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4B5563;
+}
+
+/* === Form === */
+.form-container {
+    -fx-border-color: #1F2937;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+}
+.form-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #1F2937;
+}
+.input-field {
+    -fx-border-color: #34D399;
+    -fx-border-width: 1;
+    -fx-background-color: transparent;
+    -fx-prompt-text-fill: #9CA3AF;
+    -fx-font-size: 14px;
+}
+
+/* === Buttons === */
+.btn-green {
+    -fx-background-color: #34D399;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+}
+.btn-red {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+}
+.btn-dark {
+    -fx-background-color: #1F2937;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+}
+
+/* ========== Header text split dark/green ========== */
+.header-dark {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+.header-green {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34D399;
+}
+
+/* ========== Info boxes ========== */
+.info-box {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 16;
+    /* subtle drop shadow */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.5, 0, 2);
+}
+
+/* Green sub-heading inside boxes */
+.info-heading-green {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34D399;
+}
+
+/* Regular bullet text */
+.info-value {
+    -fx-font-size: 13px;
+    -fx-text-fill: #4B5563;
+    -fx-wrap-text: true;
+}
+
+/* Section titles (above each box) */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+/* Emergency subtitle */
+.header-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+/* ==== Content panel border ==== */
+.content-panel {
+    -fx-border-color: #D1D5DB;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+}
+
+/* ==== Info box tweak ==== */
+.info-box {
+    -fx-background-color: white;
+    -fx-border-color: #E5E7EB;      /* light gray border */
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0.4, 0, 2);
+}
+/**************Dashbord*/
+    /* ==== Settings tile ==== */
+
+/* ===== Dashboard Greeting ===== */
+.title-dark {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+.title-green {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34D399;
+}
+.subtitle-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+/* ===== Settings Tile ===== */
+.settings-card {
+    -fx-background-color: #34D399;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+}
+
+/* ===== Clock Box ===== */
+.clock-card {
+    -fx-background-color: #34D399;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-alignment: CENTER;
+}
+.clock-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+/* ===== Upcoming Reminders ===== */
+.reminder-panel {
+    -fx-background-color: #1F2937;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-pref-height: 250;
+}
+.reminder-panel .list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+.reminder-panel .list-cell {
+    -fx-text-fill: #dfe6e9;
+    -fx-font-size: 14px;
+}
+.reminder-panel .list-cell:selected {
+    -fx-background-color: #34D399;
+    -fx-text-fill: #1F2937;
+}
+
+/* ===== Feature Cards ===== */
+/* Reuses your existing .card, .feature-card, .about-card, .signout-card */
+
+/* ===== Dashboard Greeting ===== */
+.title-dark {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+.title-green {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #34D399;
+}
+.subtitle-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6B7280;
+}
+
+/* ===== Settings Tile ===== */
+.settings-card {
+    -fx-background-color: #34D399;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+}
+
+/* ===== Clock Box ===== */
+.clock-card {
+    -fx-background-color: #34D399;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-alignment: CENTER;
+}
+.clock-text {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1F2937;
+}
+
+/* ===== Upcoming Reminders ===== */
+.reminder-panel {
+    -fx-background-color: #1F2937;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+    -fx-pref-height: 250;
+}
+.reminder-panel .list-view {
+    -fx-background-color: transparent;
+    -fx-control-inner-background: transparent;
+}
+.reminder-panel .list-cell {
+    -fx-text-fill: #dfe6e9;
+    -fx-font-size: 14px;
+}
+.reminder-panel .list-cell:selected {
+    -fx-background-color: #34D399;
+    -fx-text-fill: #1F2937;
+}
+
+/* ===== Clock box adjustments ===== */
+.clock-card {
+    -fx-background-color: #34D399;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-alignment: CENTER;
+
+    /* ensure it’s wide enough for “hh:mm:ss AM” */
+    -fx-min-width: 180px;
+}
+
+/* prevent ellipsis on the label itself */
+.clock-card .label {
+    -fx-text-overrun: clip;
+}
+
+
+
+/* ===== Feature Cards ===== */
+/* Reuses your existing .card, .feature-card, .about-card, .signout-card */

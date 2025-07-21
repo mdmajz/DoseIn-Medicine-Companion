@@ -1,124 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.Region?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.momentum.dosein.controllers.DashboardController"
             stylesheets="@../css/style.css"
-            prefWidth="600" prefHeight="400">
+            styleClass="root-pane">
 
+    <!-- Greeting -->
+    <top>
+        <VBox alignment="CENTER" spacing="4">
+            <padding><Insets top="20" right="0" bottom="10" left="0"/></padding>
+            <HBox alignment="CENTER" spacing="0">
+                <Label text="Hello, " styleClass="title-dark"/>
+                <Label text="User!"  styleClass="title-green"/>
+            </HBox>
+            <Label text="Your Health Matters — Stay on Track!" styleClass="subtitle-text"/>
+        </VBox>
+    </top>
+
+    <!-- Two-column dashboard -->
     <center>
-        <VBox spacing="10" alignment="TOP_CENTER">
+        <HBox spacing="30" alignment="TOP_LEFT">
+            <padding><Insets top="0" right="20" bottom="20" left="20"/></padding>
 
-            <!-- Greeting -->
-            <VBox spacing="5" alignment="CENTER">
-                <HBox alignment="CENTER">
-                    <Label text="Hello, " styleClass="greeting-text"/>
-                    <Label text="User" styleClass="greeting-user"/>
-                    <Label text="!" styleClass="greeting-text"/>
+            <!-- Left panel -->
+            <VBox spacing="12" prefWidth="320">
+                <!-- Settings + Clock -->
+                <HBox spacing="12">
+                    <Button onAction="#handleManage" styleClass="settings-card card">
+                        <graphic>
+                            <ImageView fitWidth="24" fitHeight="24">
+                                <Image url="@../images/gear.png"/>
+                            </ImageView>
+                        </graphic>
+                        Settings
+                    </Button>
+                    <VBox styleClass="clock-card" alignment="CENTER">
+                        <Label fx:id="timeLabel" text="01 : 00 PM" styleClass="clock-text"/>
+                    </VBox>
                 </HBox>
-                <Label text="Your Health Matters — Stay on Track!" styleClass="subtitle-text"/>
+
+                <!-- Upcoming reminders -->
+                <VBox styleClass="reminder-panel">
+                    <ListView fx:id="upcomingList" VBox.vgrow="ALWAYS"/>
+                </VBox>
             </VBox>
 
-            <!-- Main Content -->
-            <HBox spacing="15" alignment="TOP_LEFT">
+            <!-- Right feature grid -->
+            <GridPane hgap="20" vgap="20">
+                <Button onAction="#handleSetReminder" styleClass="card feature-card"
+                        GridPane.rowIndex="0" GridPane.columnIndex="0">
+                    <graphic>
+                        <ImageView fitWidth="32" fitHeight="32">
+                            <Image url="@../images/pill.png"/>
+                        </ImageView>
+                    </graphic>
+                    Set Reminder
+                </Button>
 
-                <!-- Left panel: Settings + Clock + Reminder List -->
-                <VBox spacing="10">
+                <Button onAction="#handleManage" styleClass="card feature-card"
+                        GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <graphic>
+                        <ImageView fitWidth="32" fitHeight="32">
+                            <Image url="@../images/manage.png"/>
+                        </ImageView>
+                    </graphic>
+                    Manage
+                </Button>
 
-                    <!-- Settings + Clock cards -->
-                    <HBox spacing="10">
-                        <Button onAction="#handleSettings" styleClass="card settings-card">
-                            <graphic>
-                                <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
-                                    <Image url="@../images/gear.png"/>
-                                </ImageView>
-                            </graphic>
-                            Settings
-                        </Button>
-                        <StackPane styleClass="card clock-card">
-                            <Label fx:id="clockLabel" text="-- : -- --" styleClass="clock-text"/>
-                        </StackPane>
-                    </HBox>
+                <Button onAction="#handleDoctors" styleClass="card feature-card"
+                        GridPane.rowIndex="1" GridPane.columnIndex="0">
+                    <graphic>
+                        <ImageView fitWidth="32" fitHeight="32">
+                            <Image url="@../images/doctor.png"/>
+                        </ImageView>
+                    </graphic>
+                    Doctors
+                </Button>
 
-                    <!-- Reminder panel -->
-                    <StackPane styleClass="reminder-panel">
-                        <ScrollPane fitToWidth="true" fitToHeight="true">
-                            <VBox fx:id="reminderContainer" spacing="8">
-                                <!-- ***** CORRECT padding declaration ***** -->
-                                <padding>
-                                    <Insets top="8" right="8" bottom="8" left="8"/>
-                                </padding>
-                            </VBox>
-                        </ScrollPane>
-                    </StackPane>
-                </VBox>
+                <Button onAction="#handleEmergency" styleClass="card feature-card"
+                        GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <graphic>
+                        <ImageView fitWidth="32" fitHeight="32">
+                            <Image url="@../images/ambulance.png"/>
+                        </ImageView>
+                    </graphic>
+                    Emergency
+                </Button>
 
-                <!-- Right panel: Feature grid -->
-                <GridPane hgap="10" vgap="10">
-                    <Button onAction="#handleSetReminder"
-                            styleClass="card feature-card"
-                            GridPane.rowIndex="0" GridPane.columnIndex="0">
-                        <graphic>
-                            <ImageView fitWidth="32" fitHeight="32">
-                                <Image url="@../images/pill.png"/>
-                            </ImageView>
-                        </graphic>
-                        Set Reminder
-                    </Button>
-                    <Button onAction="#handleManage"
-                            styleClass="card feature-card"
-                            GridPane.rowIndex="0" GridPane.columnIndex="1">
-                        <graphic>
-                            <ImageView fitWidth="32" fitHeight="32">
-                                <Image url="@../images/manage.png"/>
-                            </ImageView>
-                        </graphic>
-                        Manage
-                    </Button>
-                    <Button onAction="#handleDoctors"
-                            styleClass="card feature-card"
-                            GridPane.rowIndex="1" GridPane.columnIndex="0">
-                        <graphic>
-                            <ImageView fitWidth="32" fitHeight="32">
-                                <Image url="@../images/doctor.png"/>
-                            </ImageView>
-                        </graphic>
-                        Doctors
-                    </Button>
-                    <Button onAction="#handleEmergency"
-                            styleClass="card feature-card"
-                            GridPane.rowIndex="1" GridPane.columnIndex="1">
-                        <graphic>
-                            <ImageView fitWidth="32" fitHeight="32">
-                                <Image url="@../images/ambulance.png"/>
-                            </ImageView>
-                        </graphic>
-                        Emergency
-                    </Button>
-                    <Button onAction="#handleAbout"
-                            styleClass="card about-card"
-                            GridPane.rowIndex="2" GridPane.columnIndex="0">
-                        About Us
-                    </Button>
-                    <Button onAction="#handleSignOut"
-                            styleClass="card signout-card"
-                            GridPane.rowIndex="2" GridPane.columnIndex="1">
-                        Sign Out
-                    </Button>
-                </GridPane>
+                <Button onAction="#handleAbout" styleClass="card about-card"
+                        GridPane.rowIndex="2" GridPane.columnIndex="0">
+                    About Us
+                </Button>
 
-            </HBox>
-        </VBox>
+                <Button onAction="#handleSignOut" styleClass="card signout-card"
+                        GridPane.rowIndex="2" GridPane.columnIndex="1">
+                    Sign Out
+                </Button>
+            </GridPane>
+        </HBox>
     </center>
 </BorderPane>
